@@ -66,8 +66,7 @@ jobs:
         working-directory: ${{ env.APP_PATH }}
         run: |
           az storage blob upload-batch \
-            --account-name ${{ env.AZURE_STORAGE_ACCOUNT }} \
-            --auth-mode login \
-            --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
             --source out \
+            --account-name ${{ env.AZURE_STORAGE_ACCOUNT }} \
+            --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
             --overwrite true
