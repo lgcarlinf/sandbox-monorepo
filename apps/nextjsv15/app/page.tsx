@@ -87,7 +87,7 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Go to next
+          Go to next js
         </a>
       </footer>
     </div>
