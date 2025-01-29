@@ -60,19 +60,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: List out directory
-        run: ls -R ${{ env.APP_PATH }}/out
-
-      - name: Debug Upload Command
-        run: |
-          echo "Running command:"
-          echo "az storage blob upload-batch --auth-mode login --destination '$web' --account-name nextstaticstorage --source out --overwrite true"
-
       - name: Upload to Blob Storage
         working-directory: ${{ env.APP_PATH }}
         run: |
           az storage blob upload-batch \
-            --destination '$web' \
-            --account-name nextstaticstorage \
+            --destination ${{secrets.AZURE_STORAGE_CONTAINER}} \
+            --account-name ${{secrets.AZURE_STORAGE_ACCOUNT}} \
             --source out \
             --overwrite true
