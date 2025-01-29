@@ -72,7 +72,6 @@ jobs:
         working-directory: ${{ env.APP_PATH }}
         run: |
           az storage blob upload-batch \
-            --auth-mode login \
             --destination '$web' \
             --account-name nextstaticstorage \
             --source out \
