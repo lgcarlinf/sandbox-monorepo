@@ -60,7 +60,7 @@ jobs:
         uses: azure/login@v2
 
         with:
-          creds: "$AZURE_STORAGE_ACCOUNT"
+          creds: ${{ env.AZURE_STORAGE_ACCOUNT }}
 
       - name: Upload to Blob Storage
         working-directory: ${{ env.APP_PATH }}
