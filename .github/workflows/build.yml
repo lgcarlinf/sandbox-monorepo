@@ -1,4 +1,4 @@
-name: Deploy Next.js from Monorepo
+name: Deploy Next.js to Azure
 
 on:
   push:
@@ -10,6 +10,12 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: production
+      AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+      AZURE_STORAGE_CONTAINER: ${{ secrets.AZURE_STORAGE_CONTAINER }}
+      APP_PATH: apps/nextjsv15
 
     steps:
       - uses: actions/checkout@v4
@@ -54,23 +60,14 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # Usa el secret directamente
 
       - name: Upload to Blob Storage
-        working-directory: ${{ secrets.APP_PATH }}
+        working-directory: ${{ env.APP_PATH }}
         run: |
           az storage blob upload-batch \
-            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }}  \
+            --account-name ${{ env.AZURE_STORAGE_ACCOUNT }} \
             --auth-mode login \
-            --destination ${{ secrets.AZURE_STORAGE_CONTAINER }} \
+            --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
             --source out \
             --overwrite true
