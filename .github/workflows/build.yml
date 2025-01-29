@@ -65,7 +65,7 @@ jobs:
         run: |
           az storage blob upload-batch \
             --auth-mode login \
-            --destination ${{ secrets.AZURE_STORAGE_CONTAINER }} \
-            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+            --destination $web \
+            --account-name nextstaticstorage \
             --source out \
             --overwrite true
