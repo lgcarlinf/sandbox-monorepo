@@ -70,3 +70,7 @@ jobs:
             --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
             --source out \
             --overwrite true
+      - name: Print environment variables
+        run: |
+          echo "AZURE_STORAGE_ACCOUNT: ${{ env.AZURE_STORAGE_ACCOUNT }}"
+          echo "AZURE_CREDENTIALS:  ${{ secrets.AZURE_CREDENTIALS }}
