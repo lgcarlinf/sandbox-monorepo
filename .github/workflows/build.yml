@@ -5,24 +5,24 @@ on:
     branches:
       - main
     paths:
-      - 'apps/web/**'
+      - "apps/nextjsv15/**"
 
 env:
-  AZURE_STORAGE_ACCOUNT: your-storage-account-name
+  AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
   AZURE_STORAGE_CONTAINER: $web
-  APP_PATH: apps/web
+  APP_PATH: apps/nextjsv15
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -45,22 +45,22 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-        
+
       - name: Build Next.js app
-        run: pnpm --filter web build
-        
+        run: pnpm --filter nextjsv15 build
+
       - name: Export Next.js app
-        run: pnpm --filter web export
-        
+        run: pnpm --filter nextjsv15 export
+
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-          
+
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
       - name: Upload to Blob Storage
         working-directory: ${{ env.APP_PATH }}
         run: |
@@ -70,7 +70,7 @@ jobs:
             --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
             --source out \
             --overwrite true
+
       - name: Print environment variables
         run: |
           echo "AZURE_STORAGE_ACCOUNT: ${{ env.AZURE_STORAGE_ACCOUNT }}"
-          echo "AZURE_CREDENTIALS:  ${{ secrets.AZURE_CREDENTIALS }}
