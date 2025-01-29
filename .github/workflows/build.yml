@@ -55,7 +55,7 @@ jobs:
       - name: Print environment variables
         run: |
           echo "AZURE_STORAGE_ACCOUNT: ${{ env.AZURE_STORAGE_ACCOUNT }}"
-          echo "credentials " : ${{ secrets.AZURE_CREDENTIALS }}
+          echo "credentials  : ${{ secrets.AZURE_CREDENTIALS }}""
 
       - name: Install Azure CLI
         run: |
