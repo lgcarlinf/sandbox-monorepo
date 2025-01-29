@@ -66,14 +66,14 @@ jobs:
       - name: Debug Upload Command
         run: |
           echo "Running command:"
-          echo "az storage blob upload-batch --auth-mode login --destination \"$web\" --account-name nextstaticstorage --source out --overwrite true"
+          echo "az storage blob upload-batch --auth-mode login --destination '$web' --account-name nextstaticstorage --source out --overwrite true"
 
       - name: Upload to Blob Storage
         working-directory: ${{ env.APP_PATH }}
         run: |
           az storage blob upload-batch \
             --auth-mode login \
-            --destination "$web" \
+            --destination '$web' \
             --account-name nextstaticstorage \
             --source out \
             --overwrite true
