@@ -7,10 +7,6 @@ on:
     paths:
       - "apps/nextjsv15/**"
 
-env:
-  AZURE_STORAGE_CONTAINER: $web
-  APP_PATH: apps/nextjsv15
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -62,11 +58,11 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Upload to Blob Storage
-        working-directory: ${{ env.APP_PATH }}
+        working-directory: ${{ secrets.APP_PATH }}
         run: |
           az storage blob upload-batch \
             --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
             --auth-mode login \
-            --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
+            --destination ${{ secrets.AZURE_STORAGE_CONTAINER }} \
             --source out \
             --overwrite true
