@@ -64,11 +64,11 @@ jobs:
           creds: $AZURE_CREDENTIALS
 
       - name: Upload to Blob Storage
-        working-directory: $APP_PATH
+        working-directory: ${{env.APP_PATH}}
         run: |
           az storage blob upload-batch \
-            --account-name $AZURE_STORAGE_ACCOUNT  \
+            --account-name ${{env.AZURE_STORAGE_ACCOUNT}}  \
             --auth-mode login \
-            --destination $AZURE_STORAGE_CONTAINER \
+            --destination ${{env.AZURE_STORAGE_CONTAINER}} \
             --source out \
             --overwrite true
