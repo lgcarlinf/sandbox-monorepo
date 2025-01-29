@@ -15,7 +15,7 @@ export default function Home() {
         />
         <ol>
           <li>
-            Get started by editing <code> esta web</code>.
+            Get started by editing <code> esta web gaaa</code>.
           </li>
           <li>Guarda tus cambios instantaneamente.</li>
         </ol>

@@ -52,6 +52,11 @@ jobs:
       - name: Export Next.js app
         run: pnpm --filter nextjsv15 export
 
+      - name: Print environment variables
+        run: |
+          echo "AZURE_STORAGE_ACCOUNT: ${{ env.AZURE_STORAGE_ACCOUNT }}"
+          echo "credentials " : ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
@@ -70,7 +75,3 @@ jobs:
             --destination ${{ env.AZURE_STORAGE_CONTAINER }} \
             --source out \
             --overwrite true
-
-      - name: Print environment variables
-        run: |
-          echo "AZURE_STORAGE_ACCOUNT: ${{ env.AZURE_STORAGE_ACCOUNT }}"
