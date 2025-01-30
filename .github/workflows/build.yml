@@ -68,7 +68,6 @@ jobs:
             --account-name ${{secrets.AZURE_STORAGE_ACCOUNT}} \
             --source out \
             --overwrite true \
-            --auth-mode login
 
       - name: Purge CDN Cache
         run: |
