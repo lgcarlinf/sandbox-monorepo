@@ -68,3 +68,20 @@ jobs:
             --account-name ${{secrets.AZURE_STORAGE_ACCOUNT}} \
             --source out \
             --overwrite true
+
+      - name: Purge CDN Cache
+        run: |
+          az cdn endpoint purge \
+            --name ${{ secrets.AZURE_CDN_ENDPOINT_NAME }} \
+            --profile-name ${{ secrets.AZURE_CDN_PROFILE_NAME }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --content-paths "/*"
+            - name: Show Happy Hacking Message
+            run: |
+              echo "*********************************************"
+              echo "*                                           *"
+              echo "*          ¡Despliegue completado!          *"
+              echo "*                                           *"
+              echo "*              Happy Hacking! 🚀           *"
+              echo "*                                           *"
+              echo "*********************************************"
